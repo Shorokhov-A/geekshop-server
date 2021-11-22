@@ -1,0 +1,26 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block css %}
+    <link href="{% static 'css/products.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% include 'orders/includes/inc_order_summary.html' %}
+        <div class="basket_list">
+            {% for item in object.orderitems.select_related %}
+                <div class="card w-25">
+                    <img src="{{ item.product.image.url }}"
+                         alt="{{ item.product.short_desc }}">
+                    <span class="category_name">{{ item.product.category.name }}</span>
+                    <span class="product_name">{{ item.product.name }}</span>
+                    <span class="product_price">{{ item.product.price }}&nbspруб</span>
+                    <span class="product_quantitiy"> x {{ item.quantity }} шт. </span>
+                    <span class="product_cost"> = {{ item.get_product_cost }}&nbspруб </span>
+                </div>
+            {% endfor %}
+        </div>
+        {% include 'orders/includes/inc_order_actions.html' %}
+    </div>
+{% endblock %}
