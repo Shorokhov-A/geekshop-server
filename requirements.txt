@@ -1,10 +1,11 @@
-asgiref==3.4.1
 certifi==2021.10.8
 cffi==1.15.0
 charset-normalizer==2.0.7
 cryptography==35.0.0
 defusedxml==0.7.1
 Django==3.2.8
+django-debug-toolbar==3.2.2
+django-debug-toolbar-template-profiler==2.0.2
 django-environ==0.8.1
 idna==3.3
 oauthlib==3.1.1
@@ -19,4 +20,5 @@ social-auth-app-django==5.0.0
 social-auth-core==4.1.0
 sqlparse==0.4.2
 urllib3==1.26.7
+wrapt==1.13.3
 psycopg2-binary
