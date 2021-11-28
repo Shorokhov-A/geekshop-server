@@ -14,7 +14,9 @@ oauthlib==3.1.1
 Pillow==8.3.2
 psycopg2-binary==2.9.2
 pycparser==2.21
+pydotplus==2.0.2
 PyJWT==2.3.0
+pyparsing==3.0.6
 python3-openid==3.2.0
 pytz==2021.3
 requests==2.26.0
