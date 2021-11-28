@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.db.models.signals import pre_save, pre_delete
 from django.dispatch import receiver
 from django.http import JsonResponse
@@ -5,6 +6,7 @@ from django.shortcuts import get_object_or_404, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.db import transaction
 from django.forms import inlineformset_factory
+from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from baskets.models import Basket
@@ -19,6 +21,10 @@ class OrderList(ListView):
 
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user)
+
+    @method_decorator(login_required())
+    def dispatch(self, request, *args, **kwargs):
+        return super(OrderList, self).dispatch(request, *args, **kwargs)
 
 
 class OrderItemsCreate(CreateView):
@@ -73,6 +79,10 @@ class OrderItemsCreate(CreateView):
 
         return super(OrderItemsCreate, self).form_valid(form)
 
+    @method_decorator(login_required())
+    def dispatch(self, request, *args, **kwargs):
+        return super(OrderItemsCreate, self).dispatch(request, *args, **kwargs)
+
 
 class OrderItemsUpdate(UpdateView):
     model = Order
@@ -107,15 +117,27 @@ class OrderItemsUpdate(UpdateView):
 
         return super(OrderItemsUpdate, self).form_valid(form)
 
+    @method_decorator(login_required())
+    def dispatch(self, request, *args, **kwargs):
+        return super(OrderItemsUpdate, self).dispatch(request, *args, **kwargs)
+
 
 class OrderDelete(DeleteView):
     model = Order
     success_url = reverse_lazy('orders:orders_list')
 
+    @method_decorator(login_required())
+    def dispatch(self, request, *args, **kwargs):
+        return super(OrderDelete, self).dispatch(request, *args, **kwargs)
+
 
 class OrderRead(DetailView):
     model = Order
     extra_context = {'title': 'заказ/просмотр'}
+
+    @method_decorator(login_required())
+    def dispatch(self, request, *args, **kwargs):
+        return super(OrderRead, self).dispatch(request, *args, **kwargs)
 
 
 def order_forming_complete(request, pk):
