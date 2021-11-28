@@ -140,6 +140,7 @@ class OrderRead(DetailView):
         return super(OrderRead, self).dispatch(request, *args, **kwargs)
 
 
+@login_required()
 def order_forming_complete(request, pk):
     order = get_object_or_404(Order, pk=pk)
     order.status = Order.SENT_TO_PROCEED
