@@ -95,7 +95,8 @@ class OrderItemsUpdate(UpdateView):
         if self.request.POST:
             data['orderitems'] = order_formset(self.request.POST, instance=self.object)
         else:
-            formset = order_formset(instance=self.object)
+            queryset = self.object.orderitems.select_related()
+            formset = order_formset(instance=self.object, queryset=queryset)
             for form in formset.forms:
                 if form.instance.pk:
                     form.initial['price'] = form.instance.product.price
