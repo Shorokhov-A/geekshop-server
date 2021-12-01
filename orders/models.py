@@ -74,7 +74,7 @@ class OrderItem(models.Model):
 
     @staticmethod
     def get_item(pk):
-        return OrderItem.objects.filter(pk=pk).first()
+        return OrderItem.objects.filter(pk=pk).select_related().first()
 
     # def save(self, *args, **kwargs):
     #     if self.pk:
