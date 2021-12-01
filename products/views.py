@@ -32,7 +32,7 @@ class ProductsListView(ListView):
         context.update({
             'title': 'GeekShop - Каталог',
             'header': 'GeekShop',
-            'categories': ProductCategory.objects.all(),
+            'categories': ProductCategory.objects.all().select_related(),
         })
         return context
 
@@ -40,7 +40,7 @@ class ProductsListView(ListView):
         if self.kwargs.get('category'):
             category = get_object_or_404(ProductCategory, id=self.kwargs['category'])
             return Product.objects.filter(category=category).select_related()
-        return Product.objects.all()
+        return Product.objects.all().select_related()
 
 
 # def index(request):
