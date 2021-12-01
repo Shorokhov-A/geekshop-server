@@ -39,7 +39,7 @@ class ProductsListView(ListView):
     def get_queryset(self):
         if self.kwargs.get('category'):
             category = get_object_or_404(ProductCategory, id=self.kwargs['category'])
-            return Product.objects.filter(category=category)
+            return Product.objects.filter(category=category).select_related()
         return Product.objects.all()
 
 
