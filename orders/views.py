@@ -42,8 +42,8 @@ class OrderItemsCreate(CreateView):
         else:
             basket_items = Basket.objects.filter(user=self.request.user).select_related()
             if basket_items:
-                total_quantity = basket_items[0].total_quantity()
-                total_sum = basket_items[0].total_sum()
+                total_quantity = basket_items[0].total_quantity
+                total_sum = basket_items[0].total_sum
             if len(basket_items):
                 order_formset = inlineformset_factory(Order, OrderItem, form=OrderItemForm, extra=len(basket_items))
                 formset = order_formset()
