@@ -25,17 +25,17 @@ class Basket(models.Model):
 
     @staticmethod
     def get_item(pk):
-        return Basket.objects.filter(pk=pk).first()
+        return Basket.objects.filter(pk=pk).select_related().first()
 
     def sum(self):
         return self.product.price * self.quantity
 
     def total_quantity(self):
-        baskets = Basket.objects.filter(user=self.user)
+        baskets = Basket.objects.filter(user=self.user).select_related()
         return sum(basket.quantity for basket in baskets)
 
     def total_sum(self):
-        baskets = Basket.objects.filter(user=self.user)
+        baskets = Basket.objects.filter(user=self.user).select_related()
         return sum(basket.sum() for basket in baskets)
 
     def save(self, *args, **kwargs):
