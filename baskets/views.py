@@ -10,7 +10,7 @@ from baskets.models import Basket
 @login_required
 def basket_add(request, product_id):
     product = Product.objects.get(id=product_id)
-    baskets = Basket.objects.filter(user=request.user, product=product)
+    baskets = Basket.objects.filter(user=request.user, product=product).select_related()
 
     if not baskets.exists():
         Basket.objects.create(user=request.user, product=product, quantity=1)
