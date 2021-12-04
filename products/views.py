@@ -164,6 +164,12 @@ def product_is_active_update_product_category_save(sender, instance, **kwargs):
         db_profile_by_type(sender, 'UPDATE', connection.queries)
 
 
+@receiver(pre_save, sender=ProductCategory)
+def cache_clear_product_category_save(sender, **kwargs):
+    if cache:
+        cache.clear()
+
+
 # def index(request):
 #     context = {
 #         'title': 'GeekShop',
