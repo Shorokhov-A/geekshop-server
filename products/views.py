@@ -8,7 +8,10 @@ from django.conf import settings
 from django.core.cache import cache
 
 from django.template.loader import render_to_string
-from django.views.decorators.cache import cache_page
+
+from django.dispatch import receiver
+from django.db.models.signals import pre_save
+from django.db import connection
 
 from products.models import ProductCategory, Product
 
@@ -143,6 +146,22 @@ def products_ajax(request, pk=None, page=1):
                 context=content,
                 request=request)
             return JsonResponse({'result': result})
+
+
+def db_profile_by_type(prefix, type, queries):
+    update_queries = list(filter(lambda x: type in x['sql'], queries))
+    print(f'db_profile {type} for {prefix}:')
+    [print(query['sql']) for query in update_queries]
+
+
+@receiver(pre_save, sender=ProductCategory)
+def product_is_active_update_product_category_save(sender, instance, **kwargs):
+    if instance.pk:
+        if instance.is_active:
+            instance.product_set.update(is_active=True)
+        else:
+            instance.product_set.update(is_active=False)
+        db_profile_by_type(sender, 'UPDATE', connection.queries)
 
 
 # def index(request):
