@@ -125,7 +125,7 @@ def products_ajax(request, pk=None, page=1):
                 category = get_category(pk)
                 products = get_products_in_category_ordered_by_price(pk)
 
-            paginator = Paginator(products, 2)
+            paginator = Paginator(products, 3)
             try:
                 products_paginator = paginator.page(page)
             except PageNotAnInteger:
