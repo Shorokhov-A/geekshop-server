@@ -170,6 +170,12 @@ def cache_clear_product_category_save(sender, **kwargs):
         cache.clear()
 
 
+@receiver(pre_save, sender=Product)
+def cache_clear_product_save(sender, **kwargs):
+    if cache:
+        cache.clear()
+
+
 # def index(request):
 #     context = {
 #         'title': 'GeekShop',
