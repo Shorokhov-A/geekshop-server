@@ -6,6 +6,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.base import TemplateView
 
+from products.models import ProductCategory
 from users.models import User
 from admins.forms import UserAdminRegistrationForm, UserAdminProfileForm
 
@@ -83,6 +84,17 @@ class UserDeleteView(DeleteView):
     @method_decorator(user_passes_test(lambda u: u.is_staff))
     def dispatch(self, request, *args, **kwargs):
         return super(UserDeleteView, self).dispatch(request, *args, **kwargs)
+
+
+class CategoryListView(ListView):
+    model = ProductCategory
+    template_name = 'admins/admin-categories-read.html'
+    context_object_name = 'categories'
+    extra_context = {'title': 'GeekShop - Категории'}
+
+    @method_decorator(user_passes_test(lambda u: u.is_staff))
+    def dispatch(self, request, *args, **kwargs):
+        return super(CategoryListView, self).dispatch(request, *args, **kwargs)
 
 
 # @user_passes_test(lambda u: u.is_staff)
