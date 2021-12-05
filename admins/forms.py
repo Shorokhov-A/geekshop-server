@@ -1,5 +1,6 @@
 from django import forms
 
+from products.models import ProductCategory
 from users.forms import UserRegistrationForm, UserProfileForm
 from users.models import User
 
@@ -25,3 +26,13 @@ class UserAdminProfileForm(UserProfileForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'first_name', 'last_name', 'image')
+
+
+class ProductCategoryItemForm(forms.ModelForm):
+    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4', 'readonly': False}))
+    description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control py-4', 'readonly': False}))
+    is_active = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': 'form-control py-4', 'readonly': False}))
+
+    class Meta:
+        model = ProductCategory
+        fields = ('name', 'description', 'is_active')
