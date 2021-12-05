@@ -14,19 +14,25 @@
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                             <tr>
+                                <th>Название</th>
+                                <th>Цена</th>
+                                <th>Количество</th>
                                 <th>Категория</th>
                                 <th>Активный</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for category in categories %}
+                            {% for product in products %}
                                 <tr>
                                     <td><a href="#" style="color: dodgerblue">
-                                        {{ category.name }}
+                                        {{ product.name }}
                                     </a>
                                     </td>
+                                    <td>{{ product.price }}</td>
+                                    <td>{{ product.quantity }}</td>
+                                    <td>{{ product.category.name }}</td>
                                     <td class="text-center">
-                                        {% if category.is_active %}
+                                        {% if product.is_active %}
                                             <i class="fas fa-check-circle"></i>
                                         {% else %}
                                             <i class="fas fa-times-circle"></i>
@@ -40,7 +46,7 @@
                 </div>
                 <div class="card-footer">
                     <a href="#">
-                        <button class="btn btn-success">Добавить категорию</button>
+                        <button class="btn btn-success">Добавить продукт</button>
                     </a>
                 </div>
             </div>
