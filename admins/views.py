@@ -128,6 +128,21 @@ class ProductCategoryCreateView(CreateView):
     def dispatch(self, request, *args, **kwargs):
         return super(ProductCategoryCreateView, self).dispatch(request, *args, **kwargs)
 
+
+class ProductCreateView(CreateView):
+    model = ProductCategory
+    form_class = ProductCategoryItemForm
+    template_name = 'admins/admin-products-create.html'
+    success_url = reverse_lazy('admins:admin_products')
+    extra_context = {
+        'title': 'GeekShop - Продукты',
+        'header': 'Добавить новый продукт',
+    }
+
+    @method_decorator(user_passes_test(lambda u: u.is_staff))
+    def dispatch(self, request, *args, **kwargs):
+        return super(ProductCreateView, self).dispatch(request, *args, **kwargs)
+
 # @user_passes_test(lambda u: u.is_staff)
 # def index(request):
 #     context = {'title': 'GeekShop - Админ панель'}

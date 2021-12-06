@@ -1,6 +1,6 @@
 from django import forms
 
-from products.models import ProductCategory
+from products.models import ProductCategory, Product
 from users.forms import UserRegistrationForm, UserProfileForm
 from users.models import User
 
@@ -36,3 +36,17 @@ class ProductCategoryItemForm(forms.ModelForm):
     class Meta:
         model = ProductCategory
         fields = ('name', 'description', 'is_active')
+
+
+class ProductItemForm(forms.ModelForm):
+    category = forms.ChoiceField(widget=forms.TextInput(attrs={'class': 'form-control py-4'}))
+    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4', 'readonly': False}))
+    image = forms.ImageField(widget=forms.FileInput(attrs={'class': 'custom-file-input'}), required=False)
+    description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control py-4', 'readonly': False}))
+    price = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control py-4'}))
+    quantity = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control py-4'}))
+    is_active = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': 'vCheckboxField', 'readonly': False}))
+
+    class Meta:
+        model = Product
+        fields = ('category', 'name', 'image', 'description', 'price', 'quantity', 'is_active')
