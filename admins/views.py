@@ -129,6 +129,19 @@ class ProductCategoryCreateView(CreateView):
         return super(ProductCategoryCreateView, self).dispatch(request, *args, **kwargs)
 
 
+class ProductCategoryUpdateView(UpdateView):
+    model = ProductCategory
+    template_name = 'admins/admin-categories-update-delete.html'
+    success_url = reverse_lazy('admins:admin_categories')
+    form_class = ProductCategoryItemForm
+    extra_context = {'title': 'GeekShop - категории/редактирование'}
+    context_object_name = 'category'
+
+    @method_decorator(user_passes_test(lambda u: u.is_staff))
+    def dispatch(self, request, *args, **kwargs):
+        return super(ProductCategoryUpdateView, self).dispatch(request, *args, **kwargs)
+
+
 class ProductCreateView(CreateView):
     model = Product
     form_class = ProductItemForm
@@ -142,6 +155,7 @@ class ProductCreateView(CreateView):
     @method_decorator(user_passes_test(lambda u: u.is_staff))
     def dispatch(self, request, *args, **kwargs):
         return super(ProductCreateView, self).dispatch(request, *args, **kwargs)
+
 
 # @user_passes_test(lambda u: u.is_staff)
 # def index(request):

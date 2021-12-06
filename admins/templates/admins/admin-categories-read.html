@@ -21,7 +21,7 @@
                             <tbody>
                             {% for category in categories %}
                                 <tr>
-                                    <td><a href="#" style="color: dodgerblue">
+                                    <td><a href="{% url 'admins:admin_categories_update' category.id %}" style="color: dodgerblue">
                                         {{ category.name }}
                                     </a>
                                     </td>
