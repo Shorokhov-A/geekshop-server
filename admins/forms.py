@@ -53,7 +53,7 @@ class ProductItemForm(forms.ModelForm):
         super(ProductItemForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             if field_name == 'image':
-                field.widget.attrs['class'] = 'form-control'
+                field.widget.attrs['class'] = 'custom-file-input'
             elif field_name == 'is_active':
                 field.widget.attrs['class'] = 'vCheckboxField'
             elif field_name == 'category':
