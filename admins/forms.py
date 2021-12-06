@@ -58,5 +58,7 @@ class ProductItemForm(forms.ModelForm):
                 field.widget.attrs['class'] = 'custom-file-input'
             elif field_name == 'is_active':
                 field.widget.attrs['class'] = 'vCheckboxField'
+            elif field_name == 'category':
+                field.widget.attrs['class'] = 'form-control'
             else:
                 field.widget.attrs['class'] = 'form-control py-4'
