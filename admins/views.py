@@ -8,7 +8,7 @@ from django.views.generic.base import TemplateView
 
 from products.models import ProductCategory, Product
 from users.models import User
-from admins.forms import UserAdminRegistrationForm, UserAdminProfileForm, ProductCategoryItemForm
+from admins.forms import UserAdminRegistrationForm, UserAdminProfileForm, ProductCategoryItemForm, ProductItemForm
 
 
 class IndexTemplateView(TemplateView):
@@ -130,8 +130,8 @@ class ProductCategoryCreateView(CreateView):
 
 
 class ProductCreateView(CreateView):
-    model = ProductCategory
-    form_class = ProductCategoryItemForm
+    model = Product
+    form_class = ProductItemForm
     template_name = 'admins/admin-products-create.html'
     success_url = reverse_lazy('admins:admin_products')
     extra_context = {
