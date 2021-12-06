@@ -100,20 +100,6 @@ class CategoryListView(ListView):
         return super(CategoryListView, self).dispatch(request, *args, **kwargs)
 
 
-class ProductListView(ListView):
-    model = Product
-    template_name = 'admins/admin-products-read.html'
-    context_object_name = 'products'
-    extra_context = {
-        'title': 'GeekShop - Продукты',
-        'header': 'Продукты',
-    }
-
-    @method_decorator(user_passes_test(lambda u: u.is_staff))
-    def dispatch(self, request, *args, **kwargs):
-        return super(ProductListView, self).dispatch(request, *args, **kwargs)
-
-
 class ProductCategoryCreateView(CreateView):
     model = ProductCategory
     form_class = ProductCategoryItemForm
@@ -140,6 +126,30 @@ class ProductCategoryUpdateView(UpdateView):
     @method_decorator(user_passes_test(lambda u: u.is_staff))
     def dispatch(self, request, *args, **kwargs):
         return super(ProductCategoryUpdateView, self).dispatch(request, *args, **kwargs)
+
+
+class ProductCategoryDeleteView(DeleteView):
+    model = ProductCategory
+    template_name = 'admins/admin-users-update-delete.html'
+    success_url = reverse_lazy('admins:admin_categories')
+
+    @method_decorator(user_passes_test(lambda u: u.is_staff))
+    def dispatch(self, request, *args, **kwargs):
+        return super(ProductCategoryDeleteView, self).dispatch(request, *args, **kwargs)
+
+
+class ProductListView(ListView):
+    model = Product
+    template_name = 'admins/admin-products-read.html'
+    context_object_name = 'products'
+    extra_context = {
+        'title': 'GeekShop - Продукты',
+        'header': 'Продукты',
+    }
+
+    @method_decorator(user_passes_test(lambda u: u.is_staff))
+    def dispatch(self, request, *args, **kwargs):
+        return super(ProductListView, self).dispatch(request, *args, **kwargs)
 
 
 class ProductCreateView(CreateView):

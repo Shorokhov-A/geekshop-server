@@ -39,14 +39,6 @@ class ProductCategoryItemForm(forms.ModelForm):
 
 
 class ProductItemForm(forms.ModelForm):
-    # category = forms.ChoiceField(widget=forms.TextInput(attrs={'class': 'form-control py-4'}))
-    # name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4', 'readonly': False}))
-    # image = forms.ImageField(widget=forms.FileInput(attrs={'class': 'custom-file-input'}), required=False)
-    # description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control py-4', 'readonly': False}))
-    # price = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control py-4'}))
-    # quantity = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control py-4'}))
-    # is_active = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': 'vCheckboxField', 'readonly': False}))
-
     class Meta:
         model = Product
         fields = ('category', 'name', 'image', 'description', 'price', 'quantity', 'is_active')
