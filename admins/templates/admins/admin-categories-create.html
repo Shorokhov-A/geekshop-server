@@ -7,7 +7,7 @@
             <form action="#" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="form-group">
                             <label class="small mb-1" for="{{ form.name.id_for_label }}">Название</label>
                             {{ form.name }}
@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="form-group">
                             <label class="small mb-1" for="{{ form.description.id_for_label }}">Описание</label>
                             {{ form.description }}
