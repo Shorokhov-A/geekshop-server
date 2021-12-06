@@ -8,7 +8,7 @@ from django.views.generic.base import TemplateView
 
 from products.models import ProductCategory, Product
 from users.models import User
-from admins.forms import UserAdminRegistrationForm, UserAdminProfileForm
+from admins.forms import UserAdminRegistrationForm, UserAdminProfileForm, ProductCategoryItemForm
 
 
 class IndexTemplateView(TemplateView):
@@ -112,6 +112,21 @@ class ProductListView(ListView):
     @method_decorator(user_passes_test(lambda u: u.is_staff))
     def dispatch(self, request, *args, **kwargs):
         return super(ProductListView, self).dispatch(request, *args, **kwargs)
+
+
+class ProductCategoryCreateView(CreateView):
+    model = ProductCategory
+    form_class = ProductCategoryItemForm
+    template_name = 'admins/admin-categories-create.html'
+    success_url = reverse_lazy('admins:admin_categories')
+    extra_context = {
+        'title': 'GeekShop - Категории продуктов',
+        'header': 'Добавить категорию продуктов',
+    }
+
+    @method_decorator(user_passes_test(lambda u: u.is_staff))
+    def dispatch(self, request, *args, **kwargs):
+        return super(ProductCategoryCreateView, self).dispatch(request, *args, **kwargs)
 
 # @user_passes_test(lambda u: u.is_staff)
 # def index(request):

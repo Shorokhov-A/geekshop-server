@@ -1,7 +1,7 @@
 from django.urls import path
 
 from admins.views import IndexTemplateView, UserCreateView, UserListView, UserUpdateView, UserDeleteView, \
-    CategoryListView, ProductListView
+    CategoryListView, ProductListView, ProductCategoryCreateView
 
 app_name = 'baskets'
 
@@ -12,5 +12,6 @@ urlpatterns = [
     path('users-update/<int:pk>/', UserUpdateView.as_view(), name='admin_users_update'),
     path('users-delete/<int:pk>/', UserDeleteView.as_view(), name='admin_users_delete'),
     path('categories/', CategoryListView.as_view(), name='admin_categories'),
+    path('categories/create/', ProductCategoryCreateView.as_view(), name='admin_categories_create'),
     path('products/', ProductListView.as_view(), name='admin_products'),
 ]
