@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from products.models import ProductCategory, Product
+from products.models import Product
 from django.db import connection
 from django.db.models import Q
 from products.views import db_profile_by_type
