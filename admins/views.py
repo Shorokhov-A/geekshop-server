@@ -130,7 +130,7 @@ class ProductCategoryUpdateView(UpdateView):
 
 class ProductCategoryDeleteView(DeleteView):
     model = ProductCategory
-    template_name = 'admins/admin-users-update-delete.html'
+    template_name = 'admins/admin-categories-update-delete.html'
     success_url = reverse_lazy('admins:admin_categories')
 
     @method_decorator(user_passes_test(lambda u: u.is_staff))
@@ -165,6 +165,29 @@ class ProductCreateView(CreateView):
     @method_decorator(user_passes_test(lambda u: u.is_staff))
     def dispatch(self, request, *args, **kwargs):
         return super(ProductCreateView, self).dispatch(request, *args, **kwargs)
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    template_name = 'admins/admin-products-update-delete.html'
+    success_url = reverse_lazy('admins:admin_products')
+    form_class = ProductCategoryItemForm
+    extra_context = {'title': 'GeekShop - продукты/редактирование'}
+    context_object_name = 'product'
+
+    @method_decorator(user_passes_test(lambda u: u.is_staff))
+    def dispatch(self, request, *args, **kwargs):
+        return super(ProductUpdateView, self).dispatch(request, *args, **kwargs)
+
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    template_name = 'admins/admin-products-update-delete.html'
+    success_url = reverse_lazy('admins:admin_products')
+
+    @method_decorator(user_passes_test(lambda u: u.is_staff))
+    def dispatch(self, request, *args, **kwargs):
+        return super(ProductDeleteView, self).dispatch(request, *args, **kwargs)
 
 
 # @user_passes_test(lambda u: u.is_staff)
