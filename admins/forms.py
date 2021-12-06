@@ -31,7 +31,7 @@ class UserAdminProfileForm(UserProfileForm):
 class ProductCategoryItemForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4', 'readonly': False}))
     description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control py-4', 'readonly': False}))
-    is_active = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': 'form-control py-4', 'readonly': False}))
+    is_active = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': 'vCheckboxField', 'readonly': False}))
 
     class Meta:
         model = ProductCategory
