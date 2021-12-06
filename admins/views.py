@@ -171,7 +171,7 @@ class ProductUpdateView(UpdateView):
     model = Product
     template_name = 'admins/admin-products-update-delete.html'
     success_url = reverse_lazy('admins:admin_products')
-    form_class = ProductCategoryItemForm
+    form_class = ProductItemForm
     extra_context = {'title': 'GeekShop - продукты/редактирование'}
     context_object_name = 'product'
 
