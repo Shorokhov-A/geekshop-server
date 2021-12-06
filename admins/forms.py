@@ -43,8 +43,8 @@ class ProductItemForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4', 'readonly': False}))
     image = forms.ImageField(widget=forms.FileInput(attrs={'class': 'custom-file-input'}), required=False)
     description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control py-4', 'readonly': False}))
-    price = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control py-4'}))
-    quantity = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control py-4'}))
+    price = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control py-4'}))
+    quantity = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control py-4'}))
     is_active = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': 'vCheckboxField', 'readonly': False}))
 
     class Meta:
