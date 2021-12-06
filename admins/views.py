@@ -1,3 +1,5 @@
+from django.db import connection
+from django.db.models import F
 from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import user_passes_test
@@ -7,6 +9,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.base import TemplateView
 
 from products.models import ProductCategory, Product
+from products.views import db_profile_by_type
 from users.models import User
 from admins.forms import UserAdminRegistrationForm, UserAdminProfileForm, ProductCategoryItemForm, ProductItemForm
 
@@ -122,6 +125,14 @@ class ProductCategoryUpdateView(UpdateView):
     form_class = ProductCategoryItemForm
     extra_context = {'title': 'GeekShop - категории/редактирование'}
     context_object_name = 'category'
+
+    def form_valid(self, form):
+        if 'discount' in form.cleaned_data:
+            discount = form.cleaned_data['discount']
+            if discount:
+                self.object.product_set.update(price=F('price') * (1 - discount / 100))
+                db_profile_by_type(self.__class__, 'UPDATE', connection.queries)
+        return super().form_valid(form)
 
     @method_decorator(user_passes_test(lambda u: u.is_staff))
     def dispatch(self, request, *args, **kwargs):
