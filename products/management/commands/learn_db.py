@@ -4,7 +4,7 @@ from orders.models import OrderItem
 from products.models import Product
 from django.db import connection
 from django.db.models import Q
-from products.views import db_profile_by_type
+from admins.views import db_profile_by_type
 from django.db.models import F, When, Case, DecimalField, IntegerField
 from datetime import timedelta
 
