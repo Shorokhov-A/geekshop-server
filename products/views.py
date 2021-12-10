@@ -8,7 +8,10 @@ from django.conf import settings
 from django.core.cache import cache
 
 from django.template.loader import render_to_string
-from django.views.decorators.cache import cache_page
+
+from django.dispatch import receiver
+from django.db.models.signals import pre_save, pre_delete
+from django.db import connection
 
 from products.models import ProductCategory, Product
 
@@ -125,7 +128,7 @@ def products_ajax(request, pk=None, page=1):
                 category = get_category(pk)
                 products = get_products_in_category_ordered_by_price(pk)
 
-            paginator = Paginator(products, 2)
+            paginator = Paginator(products, 3)
             try:
                 products_paginator = paginator.page(page)
             except PageNotAnInteger:
@@ -143,6 +146,15 @@ def products_ajax(request, pk=None, page=1):
                 context=content,
                 request=request)
             return JsonResponse({'result': result})
+
+
+@receiver(pre_save, sender=ProductCategory)
+@receiver(pre_save, sender=Product)
+@receiver(pre_delete, sender=ProductCategory)
+@receiver(pre_delete, sender=Product)
+def cache_clear(sender, **kwargs):
+    if cache:
+        cache.clear()
 
 
 # def index(request):

@@ -1,3 +1,4 @@
+from django.db.models import F
 from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
@@ -18,7 +19,7 @@ def basket_add(request, product_id):
     else:
         basket = baskets.first()
         if product.quantity > basket.quantity:
-            basket.quantity += 1
+            basket.quantity = F('quantity') + 1
             basket.save()
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
 

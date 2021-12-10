@@ -1,0 +1,55 @@
+{% extends 'admins/base.html' %}
+
+{% block content %}
+    <main>
+        <div class="container-fluid">
+            <h1 class="mt-4">{{ header }}</h1>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table mr-1"></i>
+                    {{ header }}
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Цена</th>
+                                <th>Количество</th>
+                                <th>Категория</th>
+                                <th>Активный</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for product in products %}
+                                <tr>
+                                    <td><a href="{% url 'admins:admin_products_update' product.id %}" style="color: dodgerblue">
+                                        {{ product.name }}
+                                    </a>
+                                    </td>
+                                    <td>{{ product.price }}</td>
+                                    <td>{{ product.quantity }}</td>
+                                    <td>{{ product.category.name }}</td>
+                                    <td class="text-center">
+                                        {% if product.is_active %}
+                                            <i class="fas fa-check-circle"></i>
+                                        {% else %}
+                                            <i class="fas fa-times-circle"></i>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'admins:admin_products_create' %}">
+                        <button class="btn btn-success">Добавить продукт</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
